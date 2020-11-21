@@ -1,20 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { merge } = require('webpack-merge')
+const commonConfig = require('./config/webpack.common')
 
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      }
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html'
-    }),
-  ],
+module.exports = env => {
+  const envFile = env.dev ? 'dev' : 'prod'
+  const envConfig = require(`./config/webpack.${envFile}.js`) // eslint-disable-line global-require
+  const mergedConfig = merge(commonConfig, envConfig)
+
+  return mergedConfig
 }
