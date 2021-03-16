@@ -21,8 +21,15 @@ const resolveJsconfigPathsToAlias = ({ jsconfigPath = '../jsconfig.json' } = {})
 
 console.log(resolveJsconfigPathsToAlias())
 
+var babelLoader = {
+  loader: require.resolve('babel-loader'),
+  options: {
+    presets: ['@babel/env'],
+  },
+}
+
 const config = {
-  entry: `${commonPaths.appEntry}/index.js`,
+  entry: `${commonPaths.appEntry}/index.tsx`,
   output: {
     path: commonPaths.outputPath,
     publicPath: '/',
@@ -32,10 +39,20 @@ const config = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        loader: require.resolve('babel-loader'),
-        options: {
-          presets: ['@babel/env'],
-        },
+        use: [
+          babelLoader
+        ],
+      },
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          babelLoader,
+          {
+            loader: require.resolve('ts-loader'),
+            options: { transpileOnly: true },
+          }
+        ]
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/],
@@ -44,7 +61,7 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.mjs', '*'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.mjs', '*'],
     symlinks: false,
     cacheWithContext: false,
     alias: resolveJsconfigPathsToAlias(),

@@ -2,8 +2,7 @@
   "extends": [
     "eslint:recommended",
     "airbnb",
-    "prettier",
-    "prettier/react"
+    "prettier"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -39,7 +38,7 @@
       1,
       {
         "ignoreRestSiblings": true,
-        "argsIgnorePattern": "res|next|^err|^_"
+        "argsIgnorePattern": "props|res|next|^err|^_"
       }
     ],
     "prefer-const": [
@@ -93,6 +92,8 @@
       1,
       {
         "extensions": [
+          ".ts",
+          ".tsx",
           ".js",
           ".jsx"
         ]

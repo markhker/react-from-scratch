@@ -1,4 +1,5 @@
 const TerserPlugin = require('terser-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const config = {
@@ -14,6 +15,15 @@ const config = {
     },
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}',
+      },
+      typescript: {
+        enabled: true,
+        memoryLimit: 4096,
+      },
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
     }),

@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const PORT = process.env.PORT || 3040
 
@@ -11,7 +12,14 @@ const config = {
   optimization: {
     minimize: false,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}',
+      },
+    }),
+  ],
   devServer: {
     host: 'localhost',
     disableHostCheck: true,
