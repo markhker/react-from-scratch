@@ -27,7 +27,7 @@
         "helpers": true,
         "regenerator": true,
         "useESModules": false,
-        "version": "7.12.1"
+        "version": "7.13.10"
       }
     ]
   ]
