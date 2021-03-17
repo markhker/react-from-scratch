@@ -21,7 +21,7 @@ const resolveJsconfigPathsToAlias = ({ jsconfigPath = '../jsconfig.json' } = {})
 
 console.log(resolveJsconfigPathsToAlias())
 
-var babelLoader = {
+const babelLoader = {
   loader: require.resolve('babel-loader'),
   options: {
     presets: ['@babel/env'],
@@ -39,9 +39,7 @@ const config = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: [
-          babelLoader
-        ],
+        use: [babelLoader],
       },
       {
         test: /\.ts(x?)$/,
@@ -51,8 +49,8 @@ const config = {
           {
             loader: require.resolve('ts-loader'),
             options: { transpileOnly: true },
-          }
-        ]
+          },
+        ],
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/],
